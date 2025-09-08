@@ -79,6 +79,7 @@ PATH
   remote: .
   specs:
     solidus_usps (0.0.1)
+      faraday (~> 2.0)
       solidus_core (>= 2.0.0, < 5)
       solidus_support (>= 0.12.0)
 
