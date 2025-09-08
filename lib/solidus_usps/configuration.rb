@@ -2,9 +2,13 @@
 
 module SolidusUsps
   class Configuration
-    # Define here the settings for this extension, e.g.:
-    #
-    # attr_accessor :my_setting
+    attr_accessor :client_id, :client_secret, :base_url
+
+    DEFAULT_BASE_URL = 'https://apis.usps.com'
+
+    def initialize
+      @base_url = DEFAULT_BASE_URL
+    end
   end
 
   class << self
