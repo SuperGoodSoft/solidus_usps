@@ -1,16 +1,16 @@
 module SolidusUsps
-  class DomesticPricesClient < BasePricesClient
+  class InternationalPricesClient < BasePricesClient
     private
 
     def endpoint
-      "/prices/v3/base-rates/search"
+      "/international-prices/v3/base-rates/search"
     end
 
     def handle_response(response)
       if response.success?
         JSON.parse(response.body)
       else
-        raise SolidusUsps::Errors::DomesticPricesApiError.new(response)
+        raise SolidusUsps::Errors::InternationalPricesApiError.new(response)
       end
     end
   end

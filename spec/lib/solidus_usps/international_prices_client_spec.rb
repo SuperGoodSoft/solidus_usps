@@ -1,12 +1,12 @@
 require 'spec_helper'
 
-RSpec.describe SolidusUsps::DomesticPricesClient do
+RSpec.describe SolidusUsps::InternationalPricesClient do
   let(:oauth_client) {
     double('OauthClient', access_token: access_token, config: config)
   }
   let(:access_token) { 'test_access_token' }
   let(:config) { double('config', base_url: 'https://apis.usps.com') }
-  let(:rates_search_data) { { originZIPCode: '54321' } }
+  let(:rates_search_data) { { originZIPCode: '54321', destinationCountryCode: 'CA' } }
   let(:client) { described_class.new(
     oauth_client: oauth_client, rates_search_data: rates_search_data)
   }
@@ -18,7 +18,12 @@ RSpec.describe SolidusUsps::DomesticPricesClient do
 
   context "when the request is successful" do
     let(:success_response) {
-      instance_double(Faraday::Response, success?: true, body: { "price" => "5.00" }.to_json, status: 200)
+      instance_double(
+        Faraday::Response,
+        success?: true,
+        body: { "price" => "5.00" }.to_json,
+        status: 200
+      )
     }
 
     before do
@@ -43,7 +48,7 @@ RSpec.describe SolidusUsps::DomesticPricesClient do
     it 'raises a DomesticPricesApiError' do
       expect { client.get_rates }
         .to raise_error(
-          SolidusUsps::Errors::DomesticPricesApiError,
+          SolidusUsps::Errors::InternationalPricesApiError,
           /USPS API error: 500 - Error message/
         )
     end
