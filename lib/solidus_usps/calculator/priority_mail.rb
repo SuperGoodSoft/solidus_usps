@@ -14,6 +14,10 @@ module SolidusUsps
       def ship_to_country_code(package)
         package.order.ship_address.country.iso
       end
+
+      def search_data_class
+        SolidusUsps::DomesticRatesSearchData
+      end
     end
   end
 end
