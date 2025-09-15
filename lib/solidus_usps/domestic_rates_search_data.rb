@@ -1,9 +1,5 @@
 module SolidusUsps
-  class RatesSearchData
-    def initialize(spree_package)
-      @spree_package = spree_package
-    end
-
+  class DomesticRatesSearchData < BaseRatesSearchData
     def to_json
       {
         'originZIPCode' => origin_zipcode,
@@ -24,18 +20,10 @@ module SolidusUsps
       }.to_json
     end
 
-    private
-
-    def origin_zipcode
-      @spree_package.stock_location.zipcode
-    end
+    private 
 
     def destination_zipcode
       @spree_package.order&.ship_address&.zipcode
-    end
-
-    def weight
-      @spree_package.weight
     end
   end
 end
