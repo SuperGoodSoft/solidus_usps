@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-RSpec.describe SolidusUsps::RatesSearchData do
+RSpec.describe SolidusUsps::InternationalRatesSearchData do
   subject { described_class.new(spree_address, spree_shipment) }
 
-  let(:spree_address) { create(:address, zipcode: '12345') }
+  let(:spree_address) { create(:address, zipcode: '12345', country: create(:country, iso: 'CA')) }
   let(:spree_shipment) do
     create(:shipment, stock_location: create(:stock_location, zipcode: 45678)).tap do |shipment|
       create(:shipping_rate, shipment: shipment, shipping_method: shipping_method, selected: true)
@@ -15,7 +15,6 @@ RSpec.describe SolidusUsps::RatesSearchData do
     it "returns the correct JSON structure and data" do
       expect(subject.to_json).to eq({
         'originZIPCode' => '45678',
-        'destinationZIPCode' => '12345',
         'weight' => 0,
         'length' => nil,
         'width' => nil,
@@ -26,9 +25,10 @@ RSpec.describe SolidusUsps::RatesSearchData do
         'destinationEntryFacilityType' => nil,
         'priceType' => nil,
         'mailingDate' => nil,
+        'foreignPostalCode' => nil,
+        'destinationCountryCode' => "CA",
         'accountType' => nil,
         'accountNumber' => nil,
-        'hasNonstandardCharacteristics' => nil,
       }.to_json)
     end
 
