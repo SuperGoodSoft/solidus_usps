@@ -15,5 +15,10 @@ module SolidusUsps
     config.generators do |g|
       g.test_framework :rspec
     end
+
+    config.after_initialize do
+      require 'solidus_usps/calculator/base'
+      require 'solidus_usps/calculator/priority_mail'
+    end
   end
 end
