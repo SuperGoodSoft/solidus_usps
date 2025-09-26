@@ -17,7 +17,7 @@ RSpec.describe SolidusUsps::Calculator::PriorityMail do
 
   describe "#compute_package" do
     let(:order) { create(:order, ship_address: create(:address, zipcode: "67890")) }
-    let(:rates_search_data) { instance_double(SolidusUsps::RatesSearchData) }
+    let(:rates_search_data) { instance_double(SolidusUsps::DomesticRatesSearchData) }
 
     before do
       allow(calculator).to receive(:rates_search_data).and_return(rates_search_data)
