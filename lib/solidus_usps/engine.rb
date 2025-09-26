@@ -19,6 +19,7 @@ module SolidusUsps
     config.after_initialize do
       require 'solidus_usps/calculator/base'
       require 'solidus_usps/calculator/priority_mail'
+      require 'solidus_usps/calculator/priority_mail_with_insurance'
     end
   end
 end
