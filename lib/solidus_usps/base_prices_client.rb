@@ -1,13 +1,12 @@
 module SolidusUsps
   class BasePricesClient
-    attr_reader :oauth_client, :rates_search_data
+    attr_reader :oauth_client
 
-    def initialize(oauth_client:, rates_search_data:)
+    def initialize(oauth_client: SolidusUsps::OauthClient.new)
       @oauth_client = oauth_client
-      @rates_search_data = rates_search_data
     end
 
-    def get_rates
+    def get_rates(rates_search_data)
       response = connection.post(endpoint) do |request|
         request.headers["Authorization"] = "Bearer #{@oauth_client.access_token}"
         request.headers['Content-Type'] = 'application/json'
