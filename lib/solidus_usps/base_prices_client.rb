@@ -19,7 +19,7 @@ module SolidusUsps
     private
 
     def connection
-      Faraday.new(url: oauth_client.config.base_url) do |faraday|
+      Faraday.new(url: oauth_client.base_url) do |faraday|
         faraday.request :json
         faraday.response :json
         faraday.adapter Faraday.default_adapter
