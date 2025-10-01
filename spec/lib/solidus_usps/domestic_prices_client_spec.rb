@@ -8,7 +8,7 @@ RSpec.describe SolidusUsps::DomesticPricesClient do
   let(:config) { double('config', base_url: 'https://apis.usps.com') }
   let(:rates_search_data) { { originZIPCode: '54321' } }
   let(:client) { described_class.new(
-    oauth_client: oauth_client, rates_search_data: rates_search_data)
+    oauth_client: oauth_client)
   }
   let(:connection) { instance_double(Faraday::Connection) }
 
@@ -26,7 +26,7 @@ RSpec.describe SolidusUsps::DomesticPricesClient do
     end
 
     it "returns the response body" do
-      expect(client.get_rates)
+      expect(client.get_rates(rates_search_data))
         .to eq({ "price" => "5.00" })
     end
   end
@@ -41,7 +41,7 @@ RSpec.describe SolidusUsps::DomesticPricesClient do
     end
 
     it 'raises a DomesticPricesApiError' do
-      expect { client.get_rates }
+      expect { client.get_rates(rates_search_data) }
         .to raise_error(
           SolidusUsps::Errors::DomesticPricesApiError,
           /USPS API error: 500 - Error message/

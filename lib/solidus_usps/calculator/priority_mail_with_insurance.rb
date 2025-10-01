@@ -3,7 +3,6 @@ module SolidusUsps
     class PriorityMailWithInsurance < PriorityMail
       include SolidusUsps::Calculator::Concerns::WithInsurance
 
-
       def compute_package(package)
         super + compute_insurance(package)
       end
