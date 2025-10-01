@@ -2,7 +2,12 @@ require 'spec_helper'
 
 RSpec.describe SolidusUsps::InternationalPricesClient do
   let(:oauth_client) {
-    double('OauthClient', access_token: access_token, config: config)
+    double(
+      'OauthClient',
+      access_token: access_token,
+      config: config,
+      base_url: 'https://apis.usps.com'
+    )
   }
   let(:access_token) { 'test_access_token' }
   let(:config) { double('config', base_url: 'https://apis.usps.com') }

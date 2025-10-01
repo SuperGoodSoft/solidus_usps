@@ -19,6 +19,10 @@ module SolidusUsps
       @access_token
     end
 
+    def base_url
+      @config.base_url
+    end
+
     private
 
     attr_reader :config
