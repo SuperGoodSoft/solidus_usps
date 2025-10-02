@@ -5,6 +5,17 @@
 
 <!-- Explain what your extension does. -->
 
+## Media Mail Shipping Category
+
+The USPS Media Mail calculator determines eligibility based on a product’s shipping category.
+
+To ensure Media Mail rates are available, make sure your store includes a shipping category named "Media Mail”, and that all eligible products are assigned to it.
+
+You can create this category automatically by running your seed file:
+```shell
+bin/rails db:seed
+```
+
 ## Installation
 
 Add solidus_usps to your Gemfile:
