@@ -35,7 +35,7 @@ RSpec.describe SolidusUsps::DomesticRatesSearchData do
         'processingCategory' => nil,
         'rateIndicator' => nil,
         'destinationEntryFacilityType' => nil,
-        'priceType' => nil,
+        'priceType' => "RETAIL",
         'mailingDate' => nil,
         'accountType' => nil,
         'accountNumber' => nil,
