@@ -35,7 +35,8 @@ RSpec.describe SolidusUsps::DomesticRatesSearchData do
         'processingCategory' => 'NONSTANDARD',
         'rateIndicator' => "SP",
         'destinationEntryFacilityType' => 'NONE',
-        'priceType' => "RETAIL"
+        'priceType' => "RETAIL",
+        'mailingDate' => Date.tomorrow.to_s
       }.to_json)
     end
   end

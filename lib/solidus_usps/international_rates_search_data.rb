@@ -12,6 +12,7 @@ module SolidusUsps
         'rateIndicator' => rate_indicator,
         'destinationEntryFacilityType' => "NONE",
         'priceType' => price_type,
+        'mailingDate' => Date.tomorrow.to_s,
         'destinationCountryCode' => destination_country_code
       }.to_json
     end
