@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe SolidusUsps::DomesticRatesSearchData do
-  subject { described_class.new(spree_package) }
+  subject { described_class.new(calculator, spree_package) }
 
   let(:stock_location) { create(:stock_location, zipcode: '45678') }
   let(:order) { create(:order, ship_address: create(:address, zipcode: '12345')) }
@@ -13,6 +13,8 @@ RSpec.describe SolidusUsps::DomesticRatesSearchData do
     order: order,
     variant: variant
   )}
+
+  let(:calculator) { SolidusUsps::Calculator::PriorityMail.new }
 
   let(:spree_package) do
     build(:stock_package, stock_location: stock_location).tap do |package|
@@ -29,7 +31,7 @@ RSpec.describe SolidusUsps::DomesticRatesSearchData do
         'length' => nil,
         'width' => nil,
         'height' => nil,
-        'mailClass' => nil,
+        'mailClass' => 'PRIORITY_MAIL',
         'processingCategory' => nil,
         'rateIndicator' => nil,
         'destinationEntryFacilityType' => nil,

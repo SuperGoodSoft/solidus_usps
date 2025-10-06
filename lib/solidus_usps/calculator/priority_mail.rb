@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SolidusUsps
   module Calculator
     class PriorityMail < SolidusUsps::Calculator::Base
@@ -11,6 +13,10 @@ module SolidusUsps
 
       def available? package
         ship_to_country_code(package) == 'US' || package.weight > 4
+      end
+
+      def mail_class
+        "PRIORITY_MAIL"
       end
 
       private

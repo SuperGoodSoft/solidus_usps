@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SolidusUsps
   module Calculator
     class FirstClassPackageInternational < SolidusUsps::Calculator::Base
@@ -11,6 +13,10 @@ module SolidusUsps
 
       def available? package
         ship_to_country_code(package) == 'US' && package.weight <= 4 && super
+      end
+
+      def mail_class
+        "FIRST-CLASS_PACKAGE_INTERNATIONAL_SERVICE"
       end
 
       private

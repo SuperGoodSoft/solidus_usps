@@ -7,7 +7,7 @@ module SolidusUsps
         'length' => nil,
         'width' => nil,
         'height' => nil,
-        'mailClass' => nil,
+        'mailClass' => mail_class,
         'processingCategory' => nil,
         'rateIndicator' => nil,
         'destinationEntryFacilityType' => nil,
