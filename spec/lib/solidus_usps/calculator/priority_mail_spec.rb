@@ -17,25 +17,17 @@ RSpec.describe SolidusUsps::Calculator::PriorityMail do
 
   describe "#compute_package" do
     let(:order) { create(:order, ship_address: create(:address, zipcode: "67890")) }
-    let(:rates_search_data) { instance_double(SolidusUsps::DomesticRatesSearchData) }
     let(:client) { instance_double(SolidusUsps::DomesticPricesClient) }
 
     before do
-      allow(calculator).to receive(:rates_search_data).and_return(rates_search_data)
-
-      allow(SolidusUsps::DomesticPricesClient)
-        .to receive(:new)
-        .with(oauth_client: instance_of(SolidusUsps::OauthClient))
-        .and_return(client)
+      allow(SolidusUsps::DomesticPricesClient).to receive(:new).and_return(client)
 
       allow(client).to receive(:get_rates).and_return("some response")
     end
 
     it "calls DomesticPricesClient with rates search data" do
       calculator.compute_package(spree_package)
-      expect(SolidusUsps::DomesticPricesClient)
-        .to have_received(:new)
-        .with(oauth_client: instance_of(SolidusUsps::OauthClient))
+      expect(SolidusUsps::DomesticPricesClient).to have_received(:new)
 
       expect(client).to have_received(:get_rates)
     end

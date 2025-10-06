@@ -8,7 +8,7 @@ module SolidusUsps
         'length' => nil,
         'width' => nil,
         'height' => nil,
-        'mailClass' => nil,
+        'mailClass' => mail_class,
         'processingCategory' => nil,
         'rateIndicator' => nil,
         'destinationEntryFacilityType' => nil,
@@ -20,7 +20,7 @@ module SolidusUsps
       }.to_json
     end
 
-    private 
+    private
 
     def destination_zipcode
       @spree_package.order&.ship_address&.zipcode
