@@ -12,26 +12,17 @@ RSpec.describe SolidusUsps::Calculator::FirstClassPackageInternational do
   let(:spree_package) { order.shipments.first.to_package }
 
   describe "#compute_package" do
-    let(:rates_search_data) { instance_double(SolidusUsps::InternationalRatesSearchData) }
     let(:client) { instance_double(SolidusUsps::InternationalPricesClient) }
 
     before do
-      allow(calculator).to receive(:rates_search_data).and_return(rates_search_data)
-      allow(SolidusUsps::InternationalPricesClient)
-        .to receive(:new)
-        .with(
-          oauth_client: instance_of(SolidusUsps::OauthClient)
-        ).and_return(client)
-
+      allow(SolidusUsps::InternationalPricesClient).to receive(:new).and_return(client)
       allow(client).to receive(:get_rates).and_return("some response")
     end
 
     it "calls InternationalPricesClient with rates search data" do
       calculator.compute_package(spree_package)
-      expect(SolidusUsps::InternationalPricesClient)
-        .to have_received(:new)
-        .with(oauth_client: instance_of(SolidusUsps::OauthClient))
 
+      expect(SolidusUsps::InternationalPricesClient).to have_received(:new)
       expect(client).to have_received(:get_rates)
     end
   end

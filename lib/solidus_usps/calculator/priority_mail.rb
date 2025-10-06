@@ -4,11 +4,8 @@ module SolidusUsps
   module Calculator
     class PriorityMail < SolidusUsps::Calculator::Base
       def compute_package(package)
-        data = rates_search_data(package)
-        client = SolidusUsps::DomesticPricesClient.new(
-          oauth_client: SolidusUsps::OauthClient.new
-        )
-        client.get_rates(data)
+        client = SolidusUsps::DomesticPricesClient.new
+        client.get_rates(rates_search_data(package))
       end
 
       def available? package
