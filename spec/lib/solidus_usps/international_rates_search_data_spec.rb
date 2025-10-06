@@ -36,6 +36,7 @@ RSpec.describe SolidusUsps::InternationalRatesSearchData do
         'rateIndicator' => "LE",
         'destinationEntryFacilityType' => 'NONE',
         'priceType' => "RETAIL",
+        'mailingDate' => Date.tomorrow.to_s,
         'destinationCountryCode' => "CA"
       }.to_json)
     end

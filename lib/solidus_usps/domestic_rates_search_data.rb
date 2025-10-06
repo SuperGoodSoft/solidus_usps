@@ -12,7 +12,8 @@ module SolidusUsps
         'processingCategory' => "NONSTANDARD", # Because we have no dimensions, everything is non-standard.
         'rateIndicator' => rate_indicator,
         'destinationEntryFacilityType' => "NONE",
-        'priceType' => price_type
+        'priceType' => price_type,
+        'mailingDate' => Date.tomorrow.to_s
       }.to_json
     end
 
