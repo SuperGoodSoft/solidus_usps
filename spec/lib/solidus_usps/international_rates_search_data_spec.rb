@@ -27,20 +27,16 @@ RSpec.describe SolidusUsps::InternationalRatesSearchData do
     it "returns the correct JSON structure and data" do
       expect(subject.to_json).to eq({
         'originZIPCode' => '45678',
-        'weight' => "15.0",
-        'length' => nil,
-        'width' => nil,
-        'height' => nil,
+        'weight' => 15.0,
+        'length' => 0,
+        'width' => 0,
+        'height' => 0,
         'mailClass' => 'FIRST-CLASS_PACKAGE_INTERNATIONAL_SERVICE',
-        'processingCategory' => nil,
+        'processingCategory' => 'NONSTANDARD',
         'rateIndicator' => "LE",
-        'destinationEntryFacilityType' => nil,
+        'destinationEntryFacilityType' => 'NONE',
         'priceType' => "RETAIL",
-        'mailingDate' => nil,
-        'foreignPostalCode' => nil,
-        'destinationCountryCode' => "CA",
-        'accountType' => nil,
-        'accountNumber' => nil,
+        'destinationCountryCode' => "CA"
       }.to_json)
     end
   end
