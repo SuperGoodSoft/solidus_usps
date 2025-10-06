@@ -8,7 +8,7 @@ module SolidusUsps
 
     def handle_response(response)
       if response.success?
-        JSON.parse(response.body)
+        response.body
       else
         raise SolidusUsps::Errors::InternationalPricesApiError.new(response)
       end

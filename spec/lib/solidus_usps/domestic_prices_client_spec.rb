@@ -23,7 +23,7 @@ RSpec.describe SolidusUsps::DomesticPricesClient do
 
   context "when the request is successful" do
     let(:success_response) {
-      instance_double(Faraday::Response, success?: true, body: { "price" => "5.00" }.to_json, status: 200)
+      instance_double(Faraday::Response, success?: true, body: { "price" => "5.00" }, status: 200)
     }
 
     before do
