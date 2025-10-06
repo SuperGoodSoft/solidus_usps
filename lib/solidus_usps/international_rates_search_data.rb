@@ -11,7 +11,7 @@ module SolidusUsps
         'processingCategory' => nil,
         'rateIndicator' => nil,
         'destinationEntryFacilityType' => nil,
-        'priceType' => nil,
+        'priceType' => price_type,
         'mailingDate' => nil, # Optional.
         'foreignPostalCode' => nil, # Optional.
         'destinationCountryCode' => destination_country_code,

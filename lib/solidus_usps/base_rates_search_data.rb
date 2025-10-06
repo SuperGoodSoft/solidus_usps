@@ -15,6 +15,10 @@ module SolidusUsps
       @spree_package.stock_location.zipcode
     end
 
+    def price_type
+      "RETAIL"
+    end
+
     def weight
       @spree_package.weight
     end

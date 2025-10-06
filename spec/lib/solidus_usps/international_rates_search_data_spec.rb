@@ -35,7 +35,7 @@ RSpec.describe SolidusUsps::InternationalRatesSearchData do
         'processingCategory' => nil,
         'rateIndicator' => nil,
         'destinationEntryFacilityType' => nil,
-        'priceType' => nil,
+        'priceType' => "RETAIL",
         'mailingDate' => nil,
         'foreignPostalCode' => nil,
         'destinationCountryCode' => "CA",
