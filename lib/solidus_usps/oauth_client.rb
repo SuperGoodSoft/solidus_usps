@@ -33,16 +33,19 @@ module SolidusUsps
 
     def connection
       @connection ||= Faraday.new(url: config.base_url) do |connection|
-        connection.request :json
         connection.response :json
         connection.adapter :net_http
       end
     end
 
     def obtain_token
-      response = connection.post(AUTHENTICATION_ENDPOINT, token_request_body)
-      return parse_token_response(response.body) if response.success?
+      response = connection.post do |request|
+        request.url AUTHENTICATION_ENDPOINT
+        request.headers['Content-Type'] = 'application/x-www-form-urlencoded'
+        request.body = URI.encode_www_form(token_request_body)
+      end
 
+      return parse_token_response(response.body) if response.success?
       raise "USPS OAuth failed: #{response.status} - #{response.body}"
     end
 
