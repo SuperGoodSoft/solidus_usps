@@ -16,6 +16,12 @@ module SolidusUsps
         "FIRST-CLASS_PACKAGE_INTERNATIONAL_SERVICE"
       end
 
+      def rate_indicator
+        # From the USPS API docs:
+        # LE - Single-piece parcel
+        "LE"
+      end
+
       private
 
       def ship_to_country_code(package)

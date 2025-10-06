@@ -16,6 +16,12 @@ module SolidusUsps
         ship_to_country_code(package) == 'US' && package.weight <= MAXIMUM_WEIGHT && super
       end
 
+      def rate_indicator
+        # From the USPS API docs:
+        # SP - Single Piece
+        "SP"
+      end
+
       private
 
       def ship_to_country_code(package)

@@ -33,7 +33,7 @@ RSpec.describe SolidusUsps::DomesticRatesSearchData do
         'height' => nil,
         'mailClass' => 'PRIORITY_MAIL',
         'processingCategory' => nil,
-        'rateIndicator' => nil,
+        'rateIndicator' => "SP",
         'destinationEntryFacilityType' => nil,
         'priceType' => "RETAIL",
         'mailingDate' => nil,
