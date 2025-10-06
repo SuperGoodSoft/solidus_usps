@@ -27,19 +27,15 @@ RSpec.describe SolidusUsps::DomesticRatesSearchData do
       expect(subject.to_json).to eq({
         'originZIPCode' => '45678',
         'destinationZIPCode' => '12345',
-        'weight' => "10.0",
-        'length' => nil,
-        'width' => nil,
-        'height' => nil,
+        'weight' => 10.0,
+        'length' => 0,
+        'width' => 0,
+        'height' => 0,
         'mailClass' => 'PRIORITY_MAIL',
-        'processingCategory' => nil,
+        'processingCategory' => 'NONSTANDARD',
         'rateIndicator' => "SP",
-        'destinationEntryFacilityType' => nil,
-        'priceType' => "RETAIL",
-        'mailingDate' => nil,
-        'accountType' => nil,
-        'accountNumber' => nil,
-        'hasNonstandardCharacteristics' => nil,
+        'destinationEntryFacilityType' => 'NONE',
+        'priceType' => "RETAIL"
       }.to_json)
     end
   end
