@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 module SolidusUsps
   module Calculator
     class MediaMail < SolidusUsps::Calculator::Base
-      CATEGORY_NAME = "Media Mail".freeze
+      CATEGORY_NAME = "Media Mail"
 
       def compute_package(package)
         client = SolidusUsps::DomesticPricesClient.new
@@ -14,11 +16,17 @@ module SolidusUsps
         end
       end
 
-      private
-
       def mail_class
         "MEDIA_MAIL"
       end
+
+      def rate_indicator
+        # From the USPS API docs:
+        # SP - Single Piece
+        "SP"
+      end
+
+      private
 
       def shipping_category_name(item)
         item.variant.product.shipping_category&.name
