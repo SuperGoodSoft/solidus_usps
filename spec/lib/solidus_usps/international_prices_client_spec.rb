@@ -26,7 +26,7 @@ RSpec.describe SolidusUsps::InternationalPricesClient do
       instance_double(
         Faraday::Response,
         success?: true,
-        body: { "price" => "5.00" }.to_json,
+        body: { "price" => "5.00" },
         status: 200
       )
     }

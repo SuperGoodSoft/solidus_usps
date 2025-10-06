@@ -7,11 +7,7 @@ module SolidusUsps
     end
 
     def get_rates(rates_search_data)
-      response = connection.post(endpoint) do |request|
-        request.headers["Authorization"] = "Bearer #{@oauth_client.access_token}"
-        request.headers['Content-Type'] = 'application/json'
-        request.body = rates_search_data.to_json
-      end
+      response = connection.post(endpoint, rates_search_data.to_json)
 
       handle_response(response)
     end
@@ -19,7 +15,14 @@ module SolidusUsps
     private
 
     def connection
-      Faraday.new(url: oauth_client.base_url) do |faraday|
+      @connection ||= Faraday.new(
+        headers: {
+          "Authorization" => "Bearer #{oauth_client.access_token}",
+          "Accept" => "application/json",
+          "Content-Type" => "application/json"
+        },
+        url: SolidusUsps.configuration.base_url
+      ) do |faraday|
         faraday.request :json
         faraday.response :json
         faraday.adapter Faraday.default_adapter
