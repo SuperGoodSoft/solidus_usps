@@ -3,11 +3,6 @@
 module SolidusUsps
   module Calculator
     class PriorityMail < SolidusUsps::Calculator::Base
-      def compute_package(package)
-        client = SolidusUsps::DomesticPricesClient.new
-        client.get_rates(rates_search_data(package))
-      end
-
       def available? package
         ship_to_country_code(package) == 'US' || package.weight > 4
       end
@@ -18,12 +13,12 @@ module SolidusUsps
 
       private
 
-      def ship_to_country_code(package)
-        package.order.ship_address.country.iso
+      def geo_group
+        :domestic
       end
 
-      def search_data_class
-        SolidusUsps::DomesticRatesSearchData
+      def ship_to_country_code(package)
+        package.order.ship_address.country.iso
       end
     end
   end
