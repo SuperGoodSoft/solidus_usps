@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SolidusUsps
   class InternationalRatesSearchData < BaseRatesSearchData
     def to_json
@@ -9,7 +11,7 @@ module SolidusUsps
         'height' => 0,
         'mailClass' => mail_class,
         'processingCategory' => "NONSTANDARD", # Because we have no dimensions, everything is non-standard.
-        'rateIndicator' => rate_indicator,
+        'rateIndicator' => "SP",
         'destinationEntryFacilityType' => "NONE",
         'priceType' => price_type,
         'mailingDate' => Date.tomorrow.to_s,

@@ -3,23 +3,20 @@
 module SolidusUsps
   module Calculator
     class FirstClassPackageInternational < SolidusUsps::Calculator::Base
+      # Taken from the limit in solidus_active_shipping.
+      MAXIMUM_WEIGHT = 64
+
       def compute_package(package)
         client = SolidusUsps::InternationalPricesClient.new
         client.get_rates(rates_search_data(package))
       end
 
       def available? package
-        ship_to_country_code(package) == 'US' && package.weight <= 4 && super
+        ship_to_country_code(package) != 'US' && package.weight <= MAXIMUM_WEIGHT && super
       end
 
       def mail_class
         "FIRST-CLASS_PACKAGE_INTERNATIONAL_SERVICE"
-      end
-
-      def rate_indicator
-        # From the USPS API docs:
-        # LE - Single-piece parcel
-        "LE"
       end
 
       private

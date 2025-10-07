@@ -10,7 +10,7 @@ module SolidusUsps
         'height' => 0,
         'mailClass' => mail_class,
         'processingCategory' => "NONSTANDARD", # Because we have no dimensions, everything is non-standard.
-        'rateIndicator' => rate_indicator,
+        'rateIndicator' => "SP", # Single Piece - From the USPS API docs.
         'destinationEntryFacilityType' => "NONE",
         'priceType' => price_type,
         'mailingDate' => Date.tomorrow.to_s
