@@ -26,6 +26,14 @@ module SolidusUsps
           puts 'Skipping bin/rails db:migrate, don\'t forget to run it!' # rubocop:disable Rails/Output
         end
       end
+
+      def include_seeds
+        if ['', 'y', 'Y'].include?(ask('Would you like to have seed data populated now? [Y/n]'))
+          SolidusUsps::Engine.load_seed
+        else
+          puts "Skipping seeds. Don't forget to create the necessary shipping categories!"
+        end
+      end
     end
   end
 end
