@@ -33,7 +33,7 @@ RSpec.describe SolidusUsps::InternationalRatesSearchData do
         'height' => 0,
         'mailClass' => 'FIRST-CLASS_PACKAGE_INTERNATIONAL_SERVICE',
         'processingCategory' => 'NONSTANDARD',
-        'rateIndicator' => "LE",
+        'rateIndicator' => "SP",
         'destinationEntryFacilityType' => 'NONE',
         'priceType' => "RETAIL",
         'mailingDate' => Date.tomorrow.to_s,

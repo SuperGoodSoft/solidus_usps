@@ -22,12 +22,6 @@ module SolidusUsps
         "USPS_GROUND_ADVANTAGE"
       end
 
-      def rate_indicator
-        # From the USPS API docs:
-        # SP - Single Piece
-        "SP"
-      end
-
       private
 
       def ship_to_country_code(package)

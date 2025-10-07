@@ -19,10 +19,6 @@ module SolidusUsps
       "RETAIL"
     end
 
-    def rate_indicator
-      @calculator.rate_indicator
-    end
-
     def weight
       @spree_package.weight
     end

@@ -28,8 +28,10 @@ RSpec.describe SolidusUsps::Calculator::FirstClassPackageInternational do
   end
 
   describe "#available?" do
-    context "shipping to the US" do
-      context "with a package weight of 4 or less" do
+    context "shipping to Canada" do
+      let(:iso) { "CA" }
+
+      context "with a package weight of 64 or less" do
         before do
           order.variants.each { |variant| variant.update!(weight: 2) }
         end
@@ -39,9 +41,9 @@ RSpec.describe SolidusUsps::Calculator::FirstClassPackageInternational do
         end
       end
 
-      context "with a package weight over 4" do
+      context "with a package weight over 64" do
         before do
-          order.variants.each { |variant| variant.update!(weight: 5) }
+          order.variants.each { |variant| variant.update!(weight: 65) }
         end
 
         it "is unavailable" do
@@ -51,7 +53,7 @@ RSpec.describe SolidusUsps::Calculator::FirstClassPackageInternational do
     end
 
     context "shipping internationally" do
-      let(:iso) { 'CA' }
+      let(:iso) { 'US' }
 
       it "is unavailable" do
         expect(calculator.available?(spree_package)).to eq false

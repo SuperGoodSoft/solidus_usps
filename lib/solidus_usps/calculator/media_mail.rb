@@ -20,12 +20,6 @@ module SolidusUsps
         "MEDIA_MAIL"
       end
 
-      def rate_indicator
-        # From the USPS API docs:
-        # SP - Single Piece
-        "SP"
-      end
-
       private
 
       def shipping_category_name(item)
