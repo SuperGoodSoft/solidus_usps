@@ -6,11 +6,6 @@ module SolidusUsps
       # Taken from the limit in solidus_active_shipping.
       MAXIMUM_WEIGHT = 64
 
-      def compute_package(package)
-        client = SolidusUsps::InternationalPricesClient.new
-        client.get_rates(rates_search_data(package))
-      end
-
       def available? package
         ship_to_country_code(package) != 'US' && package.weight <= MAXIMUM_WEIGHT && super
       end
@@ -21,12 +16,12 @@ module SolidusUsps
 
       private
 
-      def ship_to_country_code(package)
-        package.order.ship_address.country.iso
+      def geo_group
+        :international
       end
 
-      def search_data_class
-        SolidusUsps::InternationalRatesSearchData
+      def ship_to_country_code(package)
+        package.order.ship_address.country.iso
       end
     end
   end
