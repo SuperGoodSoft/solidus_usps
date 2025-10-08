@@ -21,6 +21,7 @@ module SolidusUsps
       require 'solidus_usps/calculator/first_class_package_international'
       require 'solidus_usps/calculator/ground_advantage'
       require 'solidus_usps/calculator/media_mail'
+      require 'solidus_usps/calculator/media_mail_with_insurance'
       require 'solidus_usps/calculator/priority_mail'
       require 'solidus_usps/calculator/priority_mail_with_insurance'
     end
@@ -32,6 +33,7 @@ module SolidusUsps
             SolidusUsps::Calculator::FirstClassPackageInternational
             SolidusUsps::Calculator::GroundAdvantage
             SolidusUsps::Calculator::MediaMail
+            SolidusUsps::Calculator::MediaMailWithInsurance
             SolidusUsps::Calculator::PriorityMail
             SolidusUsps::Calculator::PriorityMailWithInsurance
           ]
