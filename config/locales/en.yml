@@ -1,5 +1,11 @@
-# Sample localization file for English. Add more files in this directory for other locales.
-# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
-
 en:
-  hello: Hello world
+  activerecord:
+    models:
+      solidus_usps/calculator/first_class_package_international: "USPS First Class Package International"
+      solidus_usps/calculator/first_class_package_international_with_insurance: "USPS First Class Package International with Insurance"
+      solidus_usps/calculator/ground_advantage: "USPS Ground Advantage"
+      solidus_usps/calculator/ground_advantage_with_insurance: "USPS Ground Advantage with Insurance"
+      solidus_usps/calculator/media_mail: "USPS Media Mail"
+      solidus_usps/calculator/media_mail_with_insurance: "USPS Media Mail with Insurance"
+      solidus_usps/calculator/priority_mail: "USPS Priority Mail"
+      solidus_usps/calculator/priority_mail_with_insurance: "USPS Priority Mail with Insurance"
