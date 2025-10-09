@@ -3,7 +3,7 @@ require 'spec_helper'
 RSpec.describe SolidusUsps::Calculator::PriorityMail do
   subject(:calculator) { described_class.new }
 
-  let(:stock_location) { create(:stock_location, zipcode: "12345") }
+  let(:stock_location) { create(:stock_location) }
   let(:variant) { create(:variant, weight: 2.0) }
   let(:line_item) { create(:line_item, order: order, variant: variant, quantity: 1) }
   let(:inventory_unit) {
@@ -16,7 +16,7 @@ RSpec.describe SolidusUsps::Calculator::PriorityMail do
   end
 
   describe "#compute_package" do
-    let(:order) { create(:order, ship_address: create(:address, zipcode: "67890")) }
+    let(:order) { create(:order, ship_address: create(:address)) }
     let(:client) { instance_double(SolidusUsps::DomesticPricesClient) }
 
     before do
@@ -35,32 +35,31 @@ RSpec.describe SolidusUsps::Calculator::PriorityMail do
 
   describe "#available?" do
     context "when shipping to the US" do
-      let(:us) { Spree::Country.find_or_create_by(iso: 'US', name: 'United States') }
-      let(:order) { create(:order, ship_address: create(:address, country: us)) }
-
-      it "returns true" do
-        expect(calculator.available?(spree_package)).to eq true
-      end
-    end
-
-    context "when shipping internationally" do
-      let(:canada) { Spree::Country.find_or_create_by(iso: 'CA', name: 'Canada') }
-      let(:order) { create(:order, ship_address: create(:address, country: canada)) }
-
-      context "when package weight is 4 or less" do
-        let(:variant) { create(:variant, weight: 4.0) }
-
-        it "returns false" do
-          expect(calculator.available?(spree_package)).to be false
-        end
-      end
-
-      context "when package weight is more than 4" do
+      context "when the poackage is above weight 4" do
+        let(:order) { create(:order, ship_address: create(:address)) }
         let(:variant) { create(:variant, weight: 5.0) }
 
         it "returns true" do
           expect(calculator.available?(spree_package)).to be true
         end
+      end
+
+      context "when the package is below weight 4" do
+        let(:order) { create(:order, ship_address: create(:address)) }
+        let(:variant) { create(:variant, weight: 2.0) }
+
+        it "returns false" do
+          expect(calculator.available?(spree_package)).to be false
+        end
+      end
+    end
+
+    context "when shipping internationally" do
+      let(:order) { create(:order, ship_address: create(:address, country: create(:country, iso: 'CA'))) }
+      let(:variant) { create(:variant, weight: 5.0) }
+
+      it "returns false" do
+        expect(calculator.available?(spree_package)).to be false
       end
     end
   end
