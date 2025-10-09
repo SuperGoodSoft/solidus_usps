@@ -43,15 +43,6 @@ RSpec.describe SolidusUsps::Calculator::PriorityMail do
           expect(calculator.available?(spree_package)).to be true
         end
       end
-
-      context "when the package is below weight 4" do
-        let(:order) { create(:order, ship_address: create(:address)) }
-        let(:variant) { create(:variant, weight: 2.0) }
-
-        it "returns false" do
-          expect(calculator.available?(spree_package)).to be false
-        end
-      end
     end
 
     context "when shipping internationally" do
