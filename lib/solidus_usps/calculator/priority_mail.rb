@@ -3,8 +3,10 @@
 module SolidusUsps
   module Calculator
     class PriorityMail < SolidusUsps::Calculator::Base
+      MINIMUM_WEIGHT = 4
+
       def available? package
-        ship_to_country_code(package) == 'US' || package.weight > 4
+        ship_to_country_code(package) == 'US' && package.weight > MINIMUM_WEIGHT && super
       end
 
       def mail_class
@@ -23,5 +25,3 @@ module SolidusUsps
     end
   end
 end
-
-
