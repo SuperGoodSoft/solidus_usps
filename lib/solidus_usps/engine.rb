@@ -26,6 +26,7 @@ module SolidusUsps
       require 'solidus_usps/calculator/media_mail_with_insurance'
       require 'solidus_usps/calculator/priority_mail'
       require 'solidus_usps/calculator/priority_mail_with_insurance'
+      require 'solidus_usps/calculator/priority_mail_international'
     end
 
     initializer "solidus_usps.register.calculators", after: "spree.register.calculators" do |app|
@@ -40,6 +41,7 @@ module SolidusUsps
             SolidusUsps::Calculator::MediaMailWithInsurance
             SolidusUsps::Calculator::PriorityMail
             SolidusUsps::Calculator::PriorityMailWithInsurance
+            SolidusUsps::Calculator::PriorityMailInternational
           ]
           app.config.spree.calculators.shipping_methods.concat calculator_classes
         end
