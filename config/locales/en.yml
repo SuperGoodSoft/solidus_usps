@@ -9,3 +9,4 @@ en:
       solidus_usps/calculator/media_mail_with_insurance: "USPS Media Mail with Insurance"
       solidus_usps/calculator/priority_mail: "USPS Priority Mail"
       solidus_usps/calculator/priority_mail_with_insurance: "USPS Priority Mail with Insurance"
+      solidus_usps/calculator/priority_mail_express: "USPS Priority Mail Express"
