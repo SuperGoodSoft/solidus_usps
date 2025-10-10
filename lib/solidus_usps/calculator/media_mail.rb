@@ -22,7 +22,7 @@ module SolidusUsps
       end
 
       def shipping_category_name(item)
-        item.variant.product.shipping_category&.name
+        item.variant.shipping_category&.name
       end
     end
   end
