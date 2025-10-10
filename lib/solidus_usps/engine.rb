@@ -27,6 +27,7 @@ module SolidusUsps
       require 'solidus_usps/calculator/priority_mail'
       require 'solidus_usps/calculator/priority_mail_with_insurance'
       require 'solidus_usps/calculator/priority_mail_express'
+      require 'solidus_usps/calculator/priority_mail_express_international'
       require 'solidus_usps/calculator/priority_mail_international'
       require 'solidus_usps/calculator/priority_mail_international_with_insurance'
     end
@@ -44,6 +45,7 @@ module SolidusUsps
             SolidusUsps::Calculator::PriorityMail
             SolidusUsps::Calculator::PriorityMailWithInsurance
             SolidusUsps::Calculator::PriorityMailExpress
+            SolidusUsps::Calculator::PriorityMailExpressInternational
             SolidusUsps::Calculator::PriorityMailInternational
             SolidusUsps::Calculator::PriorityMailInternationalWithInsurance
           ]
