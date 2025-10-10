@@ -10,3 +10,4 @@ en:
       solidus_usps/calculator/priority_mail: "USPS Priority Mail"
       solidus_usps/calculator/priority_mail_with_insurance: "USPS Priority Mail with Insurance"
       solidus_usps/calculator/priority_mail_express: "USPS Priority Mail Express"
+      solidus_usps/calculator/priority_mail_express_international: "USPS Priority Mail Express International"
