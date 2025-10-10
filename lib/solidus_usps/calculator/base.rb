@@ -5,6 +5,10 @@ module SolidusUsps
         client.get_rates(rates_search_data(package))["totalBasePrice"]
       end
 
+      def available?(package)
+        package.weight > 0
+      end
+
       private
 
       def client
