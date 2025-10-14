@@ -31,7 +31,7 @@ RSpec.describe SolidusUsps::Calculator::FirstClassPackageInternational do
     context "shipping to Canada" do
       let(:iso) { "CA" }
 
-      context "with a package weight of 64 or less" do
+      context "with a package weight less than 4lbs" do
         before do
           order.variants.each { |variant| variant.update!(weight: 2) }
         end
@@ -41,9 +41,9 @@ RSpec.describe SolidusUsps::Calculator::FirstClassPackageInternational do
         end
       end
 
-      context "with a package weight over 64" do
+      context "with a package weight of 4lbs or more" do
         before do
-          order.variants.each { |variant| variant.update!(weight: 65) }
+          order.variants.each { |variant| variant.update!(weight: 5) }
         end
 
         it "is unavailable" do
