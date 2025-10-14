@@ -3,11 +3,12 @@
 module SolidusUsps
   module Calculator
     class FirstClassPackageInternational < SolidusUsps::Calculator::Base
-      # Taken from the limit in solidus_active_shipping.
-      MAXIMUM_WEIGHT = 64
+      # Measured in pounds. (Used to be 64 in solidus_active_shipping, because
+      # they used ounces.)
+      MAXIMUM_WEIGHT = 4
 
       def available? package
-        ship_to_country_code(package) != 'US' && package.weight <= MAXIMUM_WEIGHT && super
+        ship_to_country_code(package) != 'US' && package.weight < MAXIMUM_WEIGHT && super
       end
 
       def mail_class

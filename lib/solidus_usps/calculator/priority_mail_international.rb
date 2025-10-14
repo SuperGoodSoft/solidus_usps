@@ -6,7 +6,7 @@ module SolidusUsps
       MINIMUM_WEIGHT = 4
 
       def available? package
-        ship_to_country_code(package) != 'US' && package.weight > MINIMUM_WEIGHT && super
+        ship_to_country_code(package) != 'US' && package.weight >= MINIMUM_WEIGHT && super
       end
 
       def mail_class
