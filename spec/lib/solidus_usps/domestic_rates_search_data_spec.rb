@@ -39,5 +39,15 @@ RSpec.describe SolidusUsps::DomesticRatesSearchData do
         'mailingDate' => Date.tomorrow.to_s
       }.to_json)
     end
+
+    context "when it's for priority mail express" do
+      let(:calculator) { SolidusUsps::Calculator::PriorityMailExpress.new }
+
+      it "returns PA for the rate indicator" do
+        expect(JSON.parse(subject.to_json)).to include(
+          "rateIndicator" => "PA"
+        )
+      end
+    end
   end
 end

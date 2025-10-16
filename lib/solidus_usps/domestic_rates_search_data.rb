@@ -10,7 +10,7 @@ module SolidusUsps
         'height' => 0,
         'mailClass' => mail_class,
         'processingCategory' => "NONSTANDARD", # Because we have no dimensions, everything is non-standard.
-        'rateIndicator' => "SP", # Single Piece - From the USPS API docs.
+        'rateIndicator' => rate_indicator,
         'destinationEntryFacilityType' => "NONE",
         'priceType' => price_type,
         'mailingDate' => Date.tomorrow.to_s
@@ -18,6 +18,12 @@ module SolidusUsps
     end
 
     private
+
+    # SP - Single Piece
+    # PA - Priority Mail Express Single Piece
+    def rate_indicator
+      mail_class == "PRIORITY_MAIL_EXPRESS" ? "PA" : "SP"
+    end
 
     def destination_zipcode
       @spree_package.order&.ship_address&.zipcode

@@ -40,5 +40,15 @@ RSpec.describe SolidusUsps::InternationalRatesSearchData do
         'destinationCountryCode' => "CA"
       }.to_json)
     end
+
+    context "when it's for priority mail express" do
+      let(:calculator) { SolidusUsps::Calculator::PriorityMailExpressInternational.new }
+
+      it "returns PA for the rate indicator" do
+        expect(JSON.parse(subject.to_json)).to include(
+          "rateIndicator" => "PA"
+        )
+      end
+    end
   end
 end
