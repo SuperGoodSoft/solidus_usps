@@ -29,20 +29,8 @@ RSpec.describe SolidusUsps::Calculator::PriorityMailInternational do
       let(:canada) { Spree::Country.find_or_create_by(iso: 'CA', name: 'Canada') }
       let(:order) { create(:order, ship_address: create(:address, country: canada)) }
 
-      context "when package weight is less than 4" do
-        let(:variant) { create(:variant, weight: 3.9) }
-
-        it "returns false" do
-          expect(calculator.available?(spree_package)).to be false
-        end
-      end
-
-      context "when package weight is 4 or more" do
-        let(:variant) { create(:variant, weight: 4.0) }
-
-        it "returns true" do
-          expect(calculator.available?(spree_package)).to be true
-        end
+      it "returns true" do
+        expect(calculator.available?(spree_package)).to be true
       end
     end
   end
