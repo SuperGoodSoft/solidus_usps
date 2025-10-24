@@ -3,12 +3,8 @@
 module SolidusUsps
   module Calculator
     class MediaMail < SolidusUsps::Calculator::Base
-      CATEGORY_NAME = "Media Mail"
-
-      def available?(package)
-        package.contents.all? do |item|
-          shipping_category_name(item) == CATEGORY_NAME
-        end
+      def available? package
+        ship_to_country_code(package) == 'US' && super
       end
 
       def mail_class
@@ -21,8 +17,8 @@ module SolidusUsps
         :domestic
       end
 
-      def shipping_category_name(item)
-        item.variant.shipping_category&.name
+      def ship_to_country_code(package)
+        package.order.ship_address.country.iso
       end
     end
   end
