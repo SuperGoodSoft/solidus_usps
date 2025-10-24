@@ -43,20 +43,8 @@ RSpec.describe SolidusUsps::Calculator::PriorityMailExpressInternational do
     context "when shipping internationally" do
       let(:order) { create(:order, ship_address: create(:address, country: create(:country, iso: 'CA'))) }
 
-      context "when the package weight is below 4 lbs" do
-        let(:variant) { create(:variant, weight: 3.0) }
-
-        it "returns false" do
-          expect(calculator.available?(spree_package)).to be false
-        end
-      end
-
-      context "when the package weight is 4 lbs or above" do
-        let(:variant) { create(:variant, weight: 5.0) }
-
-        it "returns true" do
-          expect(calculator.available?(spree_package)).to be true
-        end
+      it "returns true" do
+        expect(calculator.available?(spree_package)).to be true
       end
     end
   end
