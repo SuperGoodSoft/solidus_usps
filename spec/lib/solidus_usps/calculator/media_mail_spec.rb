@@ -4,7 +4,7 @@ RSpec.describe SolidusUsps::Calculator::MediaMail do
   subject(:calculator) { described_class.new }
 
   let(:stock_location) { create(:stock_location) }
-  let(:variant) { create(:variant) }
+  let(:variant) { create(:variant, weight: 1) }
   let(:line_item) { create(:line_item, order: order, variant: variant, quantity: 1) }
   let(:inventory_unit) {
     create(:inventory_unit, line_item: line_item, order: order, variant: variant)
@@ -31,23 +31,19 @@ RSpec.describe SolidusUsps::Calculator::MediaMail do
   end
 
   describe "#available?" do
-    let(:shipping_category_media_mail) { create(:shipping_category, name: "Media Mail") }
-    let(:shipping_category_not_media_mail) { create(:shipping_category, name: "Standard") }
-    let(:variant) { create(:variant, product: create(:product, shipping_category: category)) }
-
-    context "all items in the package are media mail" do
-      let(:category) { shipping_category_media_mail }
+    context "when shipping to the US" do
+      let(:order) { create(:order, ship_address: create(:address)) }
 
       it "returns true" do
-        expect(calculator.available?(package)).to eq true
+        expect(calculator.available?(package)).to be true
       end
     end
 
-    context "any item in the package is not media mail" do
-      let(:category) { shipping_category_not_media_mail }
+    context "when shipping internationally" do
+      let(:order) { create(:order, ship_address: create(:address, country: create(:country, iso: 'CA'))) }
 
       it "returns false" do
-        expect(calculator.available?(package)).to eq false
+        expect(calculator.available?(package)).to be false
       end
     end
   end
