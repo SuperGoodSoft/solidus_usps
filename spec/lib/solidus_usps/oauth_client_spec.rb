@@ -83,7 +83,7 @@ RSpec.describe SolidusUsps::OauthClient do
         allow(response).to receive(:body).and_return('Unauthorized')
 
         expect { subject.access_token }.to raise_error(
-          RuntimeError, /USPS OAuth failed: 401 - Unauthorized/
+          SolidusUsps::Errors::OauthApiError, /USPS API error: 401 - Unauthorized/
         )
       end
     end

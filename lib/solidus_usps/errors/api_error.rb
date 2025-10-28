@@ -11,5 +11,6 @@ module SolidusUsps
 
     class DomesticPricesApiError < ApiError; end
     class InternationalPricesApiError < ApiError; end
+    class OauthApiError < ApiError; end
   end
 end
