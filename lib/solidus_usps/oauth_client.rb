@@ -39,7 +39,7 @@ module SolidusUsps
       response = connection.post(AUTHENTICATION_ENDPOINT, token_request_body)
       return parse_token_response(response.body) if response.success?
 
-      raise "USPS OAuth failed: #{response.status} - #{response.body}"
+      raise SolidusUsps::Errors::OauthApiError.new(response)
     end
 
     def token_request_body

@@ -1,8 +1,12 @@
 module SolidusUsps
   module Calculator
     class Base < Spree::ShippingCalculator
+      preference :fallback_rate, :decimal
+
       def compute_package(package)
         client.get_rates(rates_search_data(package))["totalBasePrice"]
+      rescue SolidusUsps::Errors::ApiError => e
+        preferred_fallback_rate
       end
 
       def available?(package)
