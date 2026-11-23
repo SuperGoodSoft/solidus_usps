@@ -11,3 +11,6 @@ jobs:
       - uses: actions/checkout@v4
       - name: Run extension tests
         uses: solidusio/test-solidus-extension@main
+        with:
+          ruby-version: "3.3"
+          rails-version: "7.2"
