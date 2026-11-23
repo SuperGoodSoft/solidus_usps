@@ -1,11 +1,23 @@
 module SolidusUsps
   module Calculator
     class Base < Spree::ShippingCalculator
+      # The rate to charge when USPS can't give us one. When this is blank the
+      # shipping method is not offered at all instead. Zero is a valid rate,
+      # and means free shipping.
       preference :fallback_rate, :decimal
+
+      # Solidus converts a blank decimal preference to zero, which would turn
+      # a fallback rate left empty in the admin into free shipping.
+      prepend(Module.new do
+        def preferred_fallback_rate=(value)
+          super(value.presence)
+        end
+      end)
 
       def compute_package(package)
         client.get_rates(rates_search_data(package))["totalBasePrice"]
-      rescue SolidusUsps::Errors::ApiError => e
+      rescue SolidusUsps::Errors::ApiError, Faraday::Error => e
+        report_error(e, package)
         preferred_fallback_rate
       end
 
@@ -14,6 +26,23 @@ module SolidusUsps
       end
 
       private
+
+      def report_error(error, package)
+        SolidusUsps.configuration.error_handler&.call(error, error_context(package))
+      end
+
+      def error_context(package)
+        order = package.order
+
+        {
+          calculator: self.class.name,
+          mail_class: mail_class,
+          fallback_rate: preferred_fallback_rate,
+          order_number: order&.number,
+          destination_country: order&.ship_address&.country&.iso,
+          weight: package.weight.to_f
+        }
+      end
 
       def client
         case geo_group

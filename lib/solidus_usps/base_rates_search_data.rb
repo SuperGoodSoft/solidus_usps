@@ -22,5 +22,9 @@ module SolidusUsps
     def weight
       @spree_package.weight
     end
+
+    def dimensions
+      @dimensions ||= SolidusUsps.configuration.package_dimensions_class.new(@spree_package)
+    end
   end
 end

@@ -34,6 +34,17 @@ RSpec.describe SolidusUsps::Calculator::PriorityMailInternationalWithInsurance d
         expect(calculator.compute_package(spree_package)).to eq(25.0)
       end
 
+      context "when there is no base rate" do
+        before do
+          allow_any_instance_of(described_class.superclass)
+            .to receive(:compute_package).with(spree_package).and_return(nil)
+        end
+
+        it "returns no rate, rather than charging for insurance alone" do
+          expect(calculator.compute_package(spree_package)).to be_nil
+        end
+      end
+
       context "when no tiers apply" do
         before do
           calculator.preferred_rate_tiers = [

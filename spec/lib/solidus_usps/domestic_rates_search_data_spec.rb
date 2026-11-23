@@ -28,9 +28,9 @@ RSpec.describe SolidusUsps::DomesticRatesSearchData do
         'originZIPCode' => '45678',
         'destinationZIPCode' => '12345',
         'weight' => 10.0,
-        'length' => 0,
-        'width' => 0,
-        'height' => 0,
+        'length' => 6.0,
+        'width' => 4.0,
+        'height' => 0.25,
         'mailClass' => 'PRIORITY_MAIL',
         'processingCategory' => 'NONSTANDARD',
         'rateIndicator' => "SP",
@@ -38,6 +38,18 @@ RSpec.describe SolidusUsps::DomesticRatesSearchData do
         'priceType' => "RETAIL",
         'mailingDate' => Date.tomorrow.to_s
       }.to_json)
+    end
+
+    context "when the variant has dimensions" do
+      let(:variant) { create(:variant, weight: 10.0, height: 12.5, width: 0.5, depth: 12.5) }
+
+      it "sends the package's dimensions" do
+        expect(JSON.parse(subject.to_json)).to include(
+          "length" => 12.5,
+          "width" => 12.5,
+          "height" => 0.5
+        )
+      end
     end
 
     context "when it's for priority mail express" do
