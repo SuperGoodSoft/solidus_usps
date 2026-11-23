@@ -1,7 +1,9 @@
 require 'spec_helper'
 
 RSpec.describe SolidusUsps::Calculator::Base do
-  subject(:calculator) { described_class.new(preferred_fallback_rate: 5.5) }
+  subject(:calculator) { described_class.new(preferred_fallback_rate: fallback_rate) }
+
+  let(:fallback_rate) { 5.5 }
 
   describe "#compute_package" do
     let(:client) { instance_double(SolidusUsps::DomesticPricesClient) }
@@ -36,6 +38,30 @@ RSpec.describe SolidusUsps::Calculator::Base do
 
       it "returns the fallback rate" do
         expect(calculator.compute_package(package)).to eq 5.5
+      end
+
+      context "when the fallback rate is zero" do
+        let(:fallback_rate) { 0 }
+
+        it "returns zero" do
+          expect(calculator.compute_package(package)).to eq 0
+        end
+      end
+
+      context "when the fallback rate was saved blank" do
+        let(:fallback_rate) { "" }
+
+        it "returns no rate, rather than free shipping" do
+          expect(calculator.compute_package(package)).to be_nil
+        end
+      end
+
+      context "when the fallback rate isn't set" do
+        let(:fallback_rate) { nil }
+
+        it "returns no rate" do
+          expect(calculator.compute_package(package)).to be_nil
+        end
       end
     end
   end

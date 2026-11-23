@@ -64,6 +64,13 @@ SolidusUsps.configure do |config|
 end
 ```
 
+### Fallback rates
+
+Each calculator has a "fallback rate" preference, which is charged when USPS
+can't provide a rate (the API is down, rejects the request, etc.). When the
+fallback rate is blank the shipping method is not offered at all in that
+situation. A fallback rate of zero offers free shipping.
+
 ## Development
 
 ### Testing the extension
