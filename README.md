@@ -64,12 +64,24 @@ SolidusUsps.configure do |config|
 end
 ```
 
-### Fallback rates
+### Fallback rates and failed rate requests
 
 Each calculator has a "fallback rate" preference, which is charged when USPS
 can't provide a rate (the API is down, rejects the request, etc.). When the
 fallback rate is blank the shipping method is not offered at all in that
 situation. A fallback rate of zero offers free shipping.
+
+Every failed request is passed to `config.error_handler` along with some
+context about the package. By default the error is logged and reported through
+`Rails.error`. To send it somewhere else:
+
+```ruby
+SolidusUsps.configure do |config|
+  config.error_handler = ->(error, context) {
+    Honeybadger.notify(error, context: context)
+  }
+end
+```
 
 ## Development
 

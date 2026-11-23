@@ -16,7 +16,8 @@ module SolidusUsps
 
       def compute_package(package)
         client.get_rates(rates_search_data(package))["totalBasePrice"]
-      rescue SolidusUsps::Errors::ApiError
+      rescue SolidusUsps::Errors::ApiError, Faraday::Error => e
+        report_error(e, package)
         preferred_fallback_rate
       end
 
@@ -25,6 +26,23 @@ module SolidusUsps
       end
 
       private
+
+      def report_error(error, package)
+        SolidusUsps.configuration.error_handler&.call(error, error_context(package))
+      end
+
+      def error_context(package)
+        order = package.order
+
+        {
+          calculator: self.class.name,
+          mail_class: mail_class,
+          fallback_rate: preferred_fallback_rate,
+          order_number: order&.number,
+          destination_country: order&.ship_address&.country&.iso,
+          weight: package.weight.to_f
+        }
+      end
 
       def client
         case geo_group

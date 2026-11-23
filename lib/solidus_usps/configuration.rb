@@ -10,14 +10,27 @@ module SolidusUsps
     # 6" x 4", so packages are never reported as smaller than this.
     attr_accessor :minimum_package_dimensions
 
+    # Called with (error, context) whenever a USPS rate request fails and the
+    # calculator falls back. Use this to notify your error tracker, e.g.
+    #
+    #   config.error_handler = ->(error, context) {
+    #     Honeybadger.notify(error, context: context)
+    #   }
+    attr_accessor :error_handler
+
     attr_writer :package_dimensions_class
 
     DEFAULT_BASE_URL = 'https://apis.usps.com'
     DEFAULT_MINIMUM_PACKAGE_DIMENSIONS = [6, 4, 0.25].freeze
+    DEFAULT_ERROR_HANDLER = lambda do |error, context|
+      Rails.logger.error("[SolidusUsps] #{error.class}: #{error.message} #{context.inspect}")
+      Rails.error.report(error, handled: true, context: context) if Rails.respond_to?(:error)
+    end
 
     def initialize
       @base_url = DEFAULT_BASE_URL
       @minimum_package_dimensions = DEFAULT_MINIMUM_PACKAGE_DIMENSIONS
+      @error_handler = DEFAULT_ERROR_HANDLER
       @package_dimensions_class = 'SolidusUsps::PackageDimensions'
     end
 
