@@ -32,7 +32,37 @@ bin/rails generate solidus_usps:install
 
 ## Usage
 
-<!-- Explain how to use your extension once it's been installed. -->
+### Package dimensions
+
+Rate requests include the dimensions of the package, in inches. By default
+these are estimated from the `height`, `width`, and `depth` of the variants in
+the package, stacked flat: the parcel is as long and wide as its largest item
+and as tall as the items' combined thickness.
+
+USPS rejects requests for some mail classes (for example First-Class Package
+International) when the parcel is smaller than 6" x 4", so a package is never
+reported as smaller than `config.minimum_package_dimensions`, which defaults to
+`[6, 4, 0.25]`. Variants without dimensions fall back to that minimum.
+
+If your variants don't carry dimensions, supply your own class. It is
+initialized with a `Spree::Stock::Package` and must respond to `length`,
+`width`, and `height`. Subclassing `SolidusUsps::PackageDimensions` and
+overriding `item_dimensions` keeps the stacking and minimum-size behaviour:
+
+```ruby
+class MyPackageDimensions < SolidusUsps::PackageDimensions
+  private
+
+  # Length, width, and thickness of one unit, in inches.
+  def item_dimensions(content_item)
+    content_item.variant.product.mailer_dimensions
+  end
+end
+
+SolidusUsps.configure do |config|
+  config.package_dimensions_class = "MyPackageDimensions"
+end
+```
 
 ## Development
 
